@@ -1,6 +1,6 @@
-package com.leorizick.SpringWeb.resources;
+package resources;
 
-import com.leorizick.SpringWeb.domain.Category;
+import domain.Category;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/categoria")
+@RequestMapping(value = "/category")
 public class CategoryResources {
 
     @GetMapping

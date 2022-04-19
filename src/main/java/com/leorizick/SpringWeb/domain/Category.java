@@ -1,15 +1,16 @@
-package com.leorizick.SpringWeb.domain;
+package domain;
 
+import javax.persistence.*;
 import java.util.Objects;
 
+@Entity
 public class Category {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
 
-    public Category(Integer id, String name) {
-        this.id = id;
-        this.name = name;
+    public Category() {
     }
 
     public Integer getId() {
@@ -19,6 +20,12 @@ public class Category {
     public void setId(Integer id) {
         this.id = id;
     }
+
+    public Category(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
 
     public String getName() {
         return name;
