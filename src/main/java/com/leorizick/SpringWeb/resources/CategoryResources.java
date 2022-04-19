@@ -1,6 +1,6 @@
-package resources;
+package com.leorizick.SpringWeb.resources;
 
-import domain.Category;
+import com.leorizick.SpringWeb.domain.Category;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
