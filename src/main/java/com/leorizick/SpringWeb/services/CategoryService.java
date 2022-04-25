@@ -1,7 +1,7 @@
 package com.leorizick.SpringWeb.services;
 
-import com.leorizick.SpringWeb.domain.Category;
-import com.leorizick.SpringWeb.repositories.CategoryRepository;
+import com.leorizick.SpringWeb.domain.Categorias;
+import com.leorizick.SpringWeb.repositories.CategoriaRepository;
 import com.leorizick.SpringWeb.services.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,12 +12,12 @@ import java.util.Optional;
 public class CategoryService {
 
     @Autowired
-    private CategoryRepository repo;
+    private CategoriaRepository repo;
 
-    public Category find(Integer id) {
-        Optional<Category> obj = repo.findById(id);
+    public Categorias find(Integer id) {
+        Optional<Categorias> obj = repo.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException(
-                "Objeto não encontrado! Id: " + id + ", Tipo: " + Category.class.getName()));
+                "Objeto não encontrado! Id: " + id + ", Tipo: " + Categorias.class.getName()));
     }
 
 

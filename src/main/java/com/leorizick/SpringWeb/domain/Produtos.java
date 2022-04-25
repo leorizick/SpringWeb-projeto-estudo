@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-public class Product implements Serializable {
+public class Produtos implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,16 +20,16 @@ public class Product implements Serializable {
 
     @JsonBackReference
     @ManyToMany
-    @JoinTable(name = "PRODUCTS_CATEGORY",
-            joinColumns = @JoinColumn(name = "product_id"),
-            inverseJoinColumns = @JoinColumn(name = "category_id"))
-    private List<Category> categories = new ArrayList<>();
+    @JoinTable(name = "PRODUTOS_CATEGORIAS",
+            joinColumns = @JoinColumn(name = "produtos_id"),
+            inverseJoinColumns = @JoinColumn(name = "categorias_id"))
+    private List<Categorias> categorias = new ArrayList<>();
 
-    public Product(){
+    public Produtos(){
 
     }
 
-    public Product(Integer id, String name, Double price) {
+    public Produtos(Integer id, String name, Double price) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -59,13 +59,13 @@ public class Product implements Serializable {
         this.price = price;
     }
 
-    public List<Category> getCategories() {
-        return categories;
+    public List<Categorias> getCategories() {
+        return categorias;
     }
 
     @Override
     public String toString() {
-        return "Product{" +
+        return "Produtos{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", price=" + price +
@@ -75,9 +75,9 @@ public class Product implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Product)) return false;
-        Product product = (Product) o;
-        return Objects.equals(getId(), product.getId());
+        if (!(o instanceof Produtos)) return false;
+        Produtos produtos = (Produtos) o;
+        return Objects.equals(getId(), produtos.getId());
     }
 
     @Override

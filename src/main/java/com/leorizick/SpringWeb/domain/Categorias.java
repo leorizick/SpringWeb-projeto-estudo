@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-public class Category implements Serializable {
+public class Categorias implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -17,10 +17,10 @@ public class Category implements Serializable {
 
 
     @JsonManagedReference
-    @ManyToMany(mappedBy = "categories")
-    private List<Product> products = new ArrayList<>();
+    @ManyToMany(mappedBy = "categorias")
+    private List<Produtos> produtos = new ArrayList<>();
 
-    public Category() {
+    public Categorias() {
     }
 
     public Integer getId() {
@@ -31,7 +31,7 @@ public class Category implements Serializable {
         this.id = id;
     }
 
-    public Category(Integer id, String name) {
+    public Categorias(Integer id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -47,7 +47,7 @@ public class Category implements Serializable {
 
     @Override
     public String toString() {
-        return "Category{" +
+        return "Categorias{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';
@@ -56,9 +56,9 @@ public class Category implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Category)) return false;
-        Category category = (Category) o;
-        return Objects.equals(getId(), category.getId());
+        if (!(o instanceof Categorias)) return false;
+        Categorias categorias = (Categorias) o;
+        return Objects.equals(getId(), categorias.getId());
     }
 
     @Override
@@ -66,8 +66,8 @@ public class Category implements Serializable {
         return Objects.hash(getId());
     }
 
-    public List<Product> getProducts() {
-        return products;
+    public List<Produtos> getProducts() {
+        return produtos;
     }
 
 }

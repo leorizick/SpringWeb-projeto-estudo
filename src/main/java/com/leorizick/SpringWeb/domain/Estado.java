@@ -1,5 +1,7 @@
 package com.leorizick.SpringWeb.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -14,8 +16,9 @@ public class Estado implements Serializable {
     private Integer id;
     private String name;
 
+    @JsonBackReference
     @OneToMany(mappedBy = "estado")
-    private List<Cidade> cities = new ArrayList<>();
+    private List<Cidade> cidades = new ArrayList<>();
 
     public Estado(){
 
@@ -44,7 +47,7 @@ public class Estado implements Serializable {
     }
 
     public List<Cidade> getCidades() {
-        return cities;
+        return cidades;
     }
 
     @Override

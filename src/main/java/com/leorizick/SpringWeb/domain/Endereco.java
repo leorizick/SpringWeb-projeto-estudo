@@ -1,5 +1,7 @@
 package com.leorizick.SpringWeb.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -17,7 +19,9 @@ public class Endereco implements Serializable {
     private String bairro;
     private String cep;
 
+
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
     @ManyToOne

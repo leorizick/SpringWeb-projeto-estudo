@@ -1,5 +1,6 @@
 package com.leorizick.SpringWeb.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.leorizick.SpringWeb.domain.enums.TipoCliente;
 
 import javax.persistence.*;
@@ -18,12 +19,16 @@ public class Cliente implements Serializable {
     private String documento;
     private Integer tipo;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "cliente")
     private List<Endereco> enderecos = new ArrayList<>();
 
     @ElementCollection
     @CollectionTable(name = "telefone")
     private Set<String> telefones = new HashSet<>();
+
+    @OneToMany(mappedBy = "cliente")
+    private List<Pedido> pedidos = new ArrayList<>();
 
     public Cliente(){
 
@@ -85,6 +90,14 @@ public class Cliente implements Serializable {
         this.enderecos = enderecos;
     }
 
+    public List<Pedido> getPedidos() {
+        return pedidos;
+    }
+
+    public void setPedidos(List<Pedido> pedidos) {
+        this.pedidos = pedidos;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -105,4 +118,6 @@ public class Cliente implements Serializable {
     public void setTelefones(Set<String> telefones) {
         this.telefones = telefones;
     }
+
+
 }
