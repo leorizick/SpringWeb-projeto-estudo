@@ -1,9 +1,9 @@
 package com.leorizick.SpringWeb.repositories;
 
-import com.leorizick.SpringWeb.domain.Estado;
+import com.leorizick.SpringWeb.domain.Endereco;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface StateRepository extends JpaRepository<Estado, Integer> {
+public interface EnderecoRepository extends JpaRepository<Endereco, Integer> {
 }

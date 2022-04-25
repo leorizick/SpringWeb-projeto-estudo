@@ -2,28 +2,29 @@ package com.leorizick.SpringWeb.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
-public class City implements Serializable {
+public class Estado implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name ="estado_id")
-    private State state;
+    @OneToMany(mappedBy = "estado")
+    private List<Cidade> cities = new ArrayList<>();
 
-    public City(){
+    public Estado(){
 
     }
 
-    public City(Integer id, String name, State state) {
+    public Estado(Integer id, String name) {
         this.id = id;
         this.name = name;
-        this.state = state;
+
     }
 
     public Integer getId() {
@@ -42,20 +43,16 @@ public class City implements Serializable {
         this.name = name;
     }
 
-    public State getEstado() {
-        return state;
-    }
-
-    public void setEstado(State state) {
-        this.state = state;
+    public List<Cidade> getCidades() {
+        return cities;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof City)) return false;
-        City city = (City) o;
-        return Objects.equals(getId(), city.getId());
+        if (!(o instanceof Estado)) return false;
+        Estado estado = (Estado) o;
+        return Objects.equals(getId(), estado.getId());
     }
 
     @Override
