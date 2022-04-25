@@ -1,9 +1,9 @@
 package com.leorizick.SpringWeb.repositories;
 
-import com.leorizick.SpringWeb.domain.Category;
+import com.leorizick.SpringWeb.domain.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CategoryRepository extends JpaRepository<Category, Integer> {
+public interface ProductRepository extends JpaRepository<Product, Integer> {
 }
