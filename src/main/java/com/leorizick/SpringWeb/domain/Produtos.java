@@ -2,6 +2,7 @@ package com.leorizick.SpringWeb.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -16,10 +17,11 @@ public class Produtos implements Serializable {
     private String name;
     private Double price;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "id.produto")
     private Set<ItemPedido> itens = new HashSet<>();
 
-    @JsonBackReference
+    @JsonIgnore
     @ManyToMany
     @JoinTable(name = "PRODUTOS_CATEGORIAS",
             joinColumns = @JoinColumn(name = "produtos_id"),
@@ -37,6 +39,7 @@ public class Produtos implements Serializable {
     }
 
 
+    @JsonIgnore
     public Set<ItemPedido> getItens() {
         return itens;
     }
@@ -45,10 +48,11 @@ public class Produtos implements Serializable {
         this.itens = itens;
     }
 
-    public List<Pedido> getPedidos(){
+    @JsonIgnore
+    public List<Pedido> getPedido(){
      List<Pedido> list = new ArrayList<>();
      for(ItemPedido x : itens){
-         list.add(x.getPedidos());
+         list.add(x.getPedido());
      }
      return list;
     }
@@ -77,6 +81,7 @@ public class Produtos implements Serializable {
         this.price = price;
     }
 
+    @JsonIgnore
     public List<Categorias> getCategories() {
         return categorias;
     }

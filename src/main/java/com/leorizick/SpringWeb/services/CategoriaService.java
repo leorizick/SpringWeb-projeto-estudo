@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class CategoryService {
+public class CategoriaService {
 
     @Autowired
     private CategoriaRepository repo;
@@ -20,5 +20,9 @@ public class CategoryService {
                 "Objeto não encontrado! Id: " + id + ", Tipo: " + Categorias.class.getName()));
     }
 
+    public Categorias insert(Categorias obj){
+        obj.setId(null);
+        return repo.save(obj);
+    }
 
 }

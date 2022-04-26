@@ -1,5 +1,6 @@
 package com.leorizick.SpringWeb.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.leorizick.SpringWeb.domain.enums.EstadoPagamento;
 
 import javax.persistence.*;
@@ -14,18 +15,31 @@ public abstract class Pagamento implements Serializable {
     private Integer id;
     private Integer estado;
 
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "pedido_id")
     @MapsId
     private Pedido pedido;
 
-    public Pagamento(){
+    public Pagamento() {
 
     }
 
     public Pagamento(Integer id, EstadoPagamento estado, Pedido pedido) {
         this.id = id;
         this.estado = estado.getCod();
+        this.pedido = pedido;
+    }
+
+    public void setEstado(Integer estado) {
+        this.estado = estado;
+    }
+
+    public Pedido getPedido() {
+        return pedido;
+    }
+
+    public void setPedido(Pedido pedido) {
         this.pedido = pedido;
     }
 

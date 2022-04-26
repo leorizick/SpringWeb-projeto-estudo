@@ -1,6 +1,6 @@
 package com.leorizick.SpringWeb.domain;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -16,7 +16,6 @@ public class Categorias implements Serializable {
     private String name;
 
 
-    @JsonManagedReference
     @ManyToMany(mappedBy = "categorias")
     private List<Produtos> produtos = new ArrayList<>();
 
