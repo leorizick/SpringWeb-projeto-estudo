@@ -1,6 +1,7 @@
 package com.leorizick.SpringWeb.resources;
 
 import com.leorizick.SpringWeb.domain.Categorias;
+import com.leorizick.SpringWeb.dto.CategoriasDTO;
 import com.leorizick.SpringWeb.services.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -8,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/categorias")
@@ -20,6 +23,13 @@ public class CategoriaResource {
     public ResponseEntity<Categorias> find(@PathVariable Integer id) {
         Categorias obj = service.find(id);
         return ResponseEntity.ok().body(obj);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<CategoriasDTO>> findAll() {
+        List<Categorias> list = service.findAll();
+        List<CategoriasDTO> listDto = list.stream().map(obj -> new CategoriasDTO(obj)).collect(Collectors.toList());
+        return ResponseEntity.ok().body(listDto);
     }
 
     @PostMapping
