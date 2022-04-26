@@ -2,10 +2,7 @@ package com.leorizick.SpringWeb.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 public class Pedido implements Serializable {
@@ -19,6 +16,8 @@ public class Pedido implements Serializable {
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
+    @OneToMany(mappedBy="id.pedido")
+    private Set<ItemPedido> itens = new HashSet<>();
 
 //    private List<Produtos> produtos = new ArrayList<>();
 
@@ -42,6 +41,14 @@ public class Pedido implements Serializable {
         this.date = date;
         this.enderecoDeEntrega = enderecoDeEntrega;
         this.cliente = cliente;
+    }
+
+    public Set<ItemPedido> getItens() {
+        return itens;
+    }
+
+    public void setItens(Set<ItemPedido> itens) {
+        this.itens = itens;
     }
 
     public Integer getId() {
