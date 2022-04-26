@@ -2,8 +2,10 @@ package com.leorizick.SpringWeb.services;
 
 import com.leorizick.SpringWeb.domain.Categorias;
 import com.leorizick.SpringWeb.repositories.CategoriaRepository;
+import com.leorizick.SpringWeb.services.exception.DataIntegrityException;
 import com.leorizick.SpringWeb.services.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -28,6 +30,16 @@ public class CategoriaService {
     public Categorias update(Categorias obj){
         find(obj.getId());
         return repo.save(obj);
+    }
+
+    public void delete(Integer id){
+        find(id);
+        try {
+            repo.deleteById(id);
+        }catch (DataIntegrityViolationException e){
+            throw new DataIntegrityException("Não é possivel excluir uma categoria que possui produtos");
+        }
+
     }
 
 }
