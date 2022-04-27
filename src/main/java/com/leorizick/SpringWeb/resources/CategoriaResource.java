@@ -4,6 +4,7 @@ import com.leorizick.SpringWeb.domain.Categorias;
 import com.leorizick.SpringWeb.dto.CategoriasDTO;
 import com.leorizick.SpringWeb.services.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -50,6 +51,17 @@ public class CategoriaResource {
     public ResponseEntity<?> delete (@PathVariable Integer id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping(value = "/page")
+    public ResponseEntity<Page<CategoriasDTO>> findPages(
+            @RequestParam(value = "page", defaultValue = "0") Integer page,
+            @RequestParam(value = "line", defaultValue = "10")Integer linesPerPage,
+            @RequestParam(value = "orderBy", defaultValue = "name")String orderBy,
+            @RequestParam(value = "direction", defaultValue = "DESC")String direction) {
+        Page<Categorias> list = service.findPage(page, linesPerPage, orderBy, direction);
+        Page<CategoriasDTO> listDto = list.map(obj -> new CategoriasDTO(obj));
+        return ResponseEntity.ok().body(listDto);
     }
 }
 

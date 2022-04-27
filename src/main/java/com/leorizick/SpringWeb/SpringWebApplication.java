@@ -42,6 +42,11 @@ public class SpringWebApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		Categorias cat1 = new Categorias(null, "Informatica");
 		Categorias cat2 = new Categorias(null, "Escritorio");
+		Categorias cat3 = new Categorias(null, "Jantar");
+		Categorias cat4 = new Categorias(null, "Jogos");
+		Categorias cat5 = new Categorias(null, "Banheiros");
+		Categorias cat6 = new Categorias(null, "Departamento");
+
 
 		Produtos p1 = new Produtos(null, "Computador", 2000.00);
 		Produtos p2 = new Produtos(null, "Impressora", 800.00);
@@ -54,7 +59,7 @@ public class SpringWebApplication implements CommandLineRunner {
 		p2.getCategories().addAll(Arrays.asList(cat1, cat2));
 		p3.getCategories().addAll(Arrays.asList(cat2));
 
-		categoriaRepository.saveAll(Arrays.asList(cat1, cat2));
+		categoriaRepository.saveAll(Arrays.asList(cat1, cat2, cat3, cat4, cat5, cat6));
 		produtoRepository.saveAll(Arrays.asList(p1,p2,p3));
 
 		Estado stat1 = new Estado(null, "Minas Gerais");
