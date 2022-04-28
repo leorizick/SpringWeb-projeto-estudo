@@ -1,6 +1,7 @@
 package com.leorizick.SpringWeb.services;
 
 import com.leorizick.SpringWeb.domain.Categorias;
+import com.leorizick.SpringWeb.dto.CategoriasDTO;
 import com.leorizick.SpringWeb.repositories.CategoriaRepository;
 import com.leorizick.SpringWeb.services.exception.DataIntegrityException;
 import com.leorizick.SpringWeb.services.exception.ObjectNotFoundException;
@@ -52,5 +53,9 @@ public class CategoriaService {
     public Page<Categorias> findPage(Integer page, Integer linesPerPage, String orderBy, String direction){
         PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
         return repo.findAll(pageRequest);
+    }
+
+    public Categorias fromDto(CategoriasDTO objDto){
+        return new Categorias(objDto.getId(), objDto.getName());
     }
 }
