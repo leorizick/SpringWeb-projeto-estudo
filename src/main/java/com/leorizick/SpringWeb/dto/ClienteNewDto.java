@@ -1,22 +1,41 @@
 package com.leorizick.SpringWeb.dto;
 
+import com.leorizick.SpringWeb.services.validation.ClienteInsert;
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
+@ClienteInsert
 public class ClienteNewDto implements Serializable {
 
+    @NotBlank(message = "Preenchimento obrigatorio")
+    @Size(min = 5, max = 80, message = "O nome deve conter entre 5 e 80 caracteres")
     private String name;
+
+    @NotBlank(message = "Preenchimento obrigatorio")
+    @Email(message = "Email invalido")
     private String email;
+
+    @NotBlank(message = "Preenchimento obrigatorio")
     private String documento;
+
+
     private Integer tipo;
 
+    @NotBlank(message = "Preenchimento obrigatorio")
     private String logradouro;
     private String numero;
     private String complemento;
+
+    
     private String bairro;
     private String cep;
 
     private Integer cidadeId;
 
+    @NotBlank(message = "Preenchimento obrigatorio")
     private String telefone1;
     private String telefone2;
     private String telefone3;
