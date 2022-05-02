@@ -1,9 +1,14 @@
 package com.leorizick.SpringWeb.services;
 
+import com.leorizick.SpringWeb.domain.Cidade;
 import com.leorizick.SpringWeb.domain.Cliente;
 import com.leorizick.SpringWeb.domain.Cliente;
+import com.leorizick.SpringWeb.domain.Endereco;
+import com.leorizick.SpringWeb.domain.enums.TipoCliente;
 import com.leorizick.SpringWeb.dto.ClienteDTO;
+import com.leorizick.SpringWeb.dto.ClienteNewDto;
 import com.leorizick.SpringWeb.repositories.ClienteRepository;
+import com.leorizick.SpringWeb.repositories.EnderecoRepository;
 import com.leorizick.SpringWeb.services.exception.DataIntegrityException;
 import com.leorizick.SpringWeb.services.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +18,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,15 +28,21 @@ public class ClienteService {
     @Autowired
     private ClienteRepository repo;
 
+    @Autowired
+    private EnderecoRepository enderecoRepository;
+
     public Cliente find(Integer id) {
         Optional<Cliente> obj = repo.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException(
                 "Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));
     }
 
+    @Transactional
     public Cliente insert(Cliente obj){
         obj.setId(null);
-        return repo.save(obj);
+        obj = repo.save(obj);
+        enderecoRepository.saveAll(obj.getEnderecos());
+        return obj;
     }
 
     public Cliente update(Cliente obj){
@@ -64,6 +76,21 @@ public class ClienteService {
 
     public Cliente fromDto(ClienteDTO objDto){
         return new Cliente(objDto.getId(), objDto.getName(), objDto.getEmail(), null, null);
+    }
+
+    public Cliente fromDto(ClienteNewDto objDto){
+        Cliente cli = new Cliente(null, objDto.getName(), objDto.getEmail(), objDto.getDocumento(), TipoCliente.toEnum(objDto.getTipo()));
+        Cidade cidade = new Cidade(objDto.getCidadeId(), null, null);
+        Endereco end = new Endereco(null, objDto.getLogradouro(), objDto.getNumero(), objDto.getComplemento(), objDto.getBairro(), objDto.getCep(), cli, cidade);
+        cli.getEnderecos().add(end);
+        cli.getTelefones().add(objDto.getTelefone1());
+        if(objDto.getTelefone2() != null){
+            cli.getTelefones().add(objDto.getTelefone2());
+        }
+        if(objDto.getTelefone3() != null){
+            cli.getTelefones().add(objDto.getTelefone3());
+        }
+        return cli;
     }
 
 

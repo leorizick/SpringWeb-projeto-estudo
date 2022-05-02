@@ -1,7 +1,10 @@
 package com.leorizick.SpringWeb.resources;
 
+import com.leorizick.SpringWeb.domain.Categorias;
 import com.leorizick.SpringWeb.domain.Cliente;
+import com.leorizick.SpringWeb.dto.CategoriasDTO;
 import com.leorizick.SpringWeb.dto.ClienteDTO;
+import com.leorizick.SpringWeb.dto.ClienteNewDto;
 import com.leorizick.SpringWeb.services.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -34,13 +37,23 @@ public class ClienteResources {
         return ResponseEntity.ok().body(listDto);
     }
 
+
     @PostMapping
-    public ResponseEntity<Void> insert(@Valid @RequestBody ClienteDTO objDto) {
+    public ResponseEntity<Void> insert(@Valid @RequestBody ClienteNewDto objDto){
         Cliente obj = service.fromDto(objDto);
         obj = service.insert(obj);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
         return ResponseEntity.created(uri).build();
     }
+
+
+//    @PostMapping
+//    public ResponseEntity<Void> insert(@Valid @RequestBody ClienteDTO objDto) {
+//        Cliente obj = service.fromDto(objDto);
+//        obj = service.insert(obj);
+//        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+//        return ResponseEntity.created(uri).build();
+//    }
 
     @PutMapping(value = "/{id}")
     public ResponseEntity<Void> update(@Valid @RequestBody ClienteDTO objDto, @PathVariable Integer id) {

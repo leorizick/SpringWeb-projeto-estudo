@@ -1,6 +1,7 @@
 package com.leorizick.SpringWeb.services;
 
 import com.leorizick.SpringWeb.domain.Categorias;
+import com.leorizick.SpringWeb.domain.Cliente;
 import com.leorizick.SpringWeb.dto.CategoriasDTO;
 import com.leorizick.SpringWeb.repositories.CategoriaRepository;
 import com.leorizick.SpringWeb.services.exception.DataIntegrityException;
@@ -33,8 +34,13 @@ public class CategoriaService {
     }
 
     public Categorias update(Categorias obj){
-        find(obj.getId());
-        return repo.save(obj);
+        Categorias newObj = find(obj.getId());
+        updateData(newObj, obj);
+        return repo.save(newObj);
+    }
+
+    private void updateData(Categorias newObj, Categorias obj) {
+        newObj.setName(obj.getName());
     }
 
     public void delete(Integer id){
