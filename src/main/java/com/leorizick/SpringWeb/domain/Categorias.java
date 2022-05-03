@@ -1,7 +1,5 @@
 package com.leorizick.SpringWeb.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -17,7 +15,7 @@ public class Categorias implements Serializable {
 
 
     @ManyToMany(mappedBy = "categorias")
-    private List<Produtos> produtos = new ArrayList<>();
+    private List<Produto> produtos = new ArrayList<>();
 
     public Categorias() {
     }
@@ -65,7 +63,7 @@ public class Categorias implements Serializable {
         return Objects.hash(getId());
     }
 
-    public List<Produtos> getProducts() {
+    public List<Produto> getProducts() {
         return produtos;
     }
 

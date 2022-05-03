@@ -1,7 +1,6 @@
 package com.leorizick.SpringWeb.domain;
 
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -9,7 +8,7 @@ import java.io.Serializable;
 import java.util.*;
 
 @Entity
-public class Produtos implements Serializable {
+public class Produto implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,11 +27,11 @@ public class Produtos implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "categorias_id"))
     private List<Categorias> categorias = new ArrayList<>();
 
-    public Produtos(){
+    public Produto(){
 
     }
 
-    public Produtos(Integer id, String name, Double price) {
+    public Produto(Integer id, String name, Double price) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -98,9 +97,9 @@ public class Produtos implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Produtos)) return false;
-        Produtos produtos = (Produtos) o;
-        return Objects.equals(getId(), produtos.getId());
+        if (!(o instanceof Produto)) return false;
+        Produto produto = (Produto) o;
+        return Objects.equals(getId(), produto.getId());
     }
 
     @Override

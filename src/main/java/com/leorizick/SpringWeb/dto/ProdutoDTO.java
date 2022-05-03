@@ -1,34 +1,29 @@
 package com.leorizick.SpringWeb.dto;
 
-import com.leorizick.SpringWeb.domain.Cliente;
-import com.leorizick.SpringWeb.services.validation.ClienteUpdate;
+import com.leorizick.SpringWeb.domain.Categorias;
+import com.leorizick.SpringWeb.domain.Produto;
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
-@ClienteUpdate
-public class ClienteDTO {
+
+public class ProdutoDTO {
 
     private Integer id;
+    private Double price;
 
     @NotBlank(message = "Preenchimento obrigatorio!")
     @Size(min = 5, max = 80, message = "O tamanho deve ser entre 5 e 80 caracteres")
     private String name;
 
-    @NotBlank(message = "Preenchimento obrigatorio!")
-    @Email(message = "Email invalido")
-    private String email;
-
-    public ClienteDTO(){
+    public ProdutoDTO() {
 
     }
 
-    public ClienteDTO(Cliente obj){
+    public ProdutoDTO(Produto obj) {
         id = obj.getId();
         name = obj.getName();
-        email = obj.getEmail();
+        price = obj.getPrice();
     }
 
     public Integer getId() {
@@ -47,11 +42,11 @@ public class ClienteDTO {
         this.name = name;
     }
 
-    public String getEmail() {
-        return email;
+    public Double getPrice() {
+        return price;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setPrice(Double price) {
+        this.price = price;
     }
 }

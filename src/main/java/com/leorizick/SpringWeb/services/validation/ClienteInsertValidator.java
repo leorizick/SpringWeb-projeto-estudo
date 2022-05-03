@@ -9,11 +9,10 @@ import com.leorizick.SpringWeb.resources.exceptions.FieldMessage;
 import com.leorizick.SpringWeb.services.validation.utils.BR;
 import org.springframework.beans.factory.annotation.Autowired;
 
-
-import java.util.ArrayList;
-import java.util.List;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
+import java.util.ArrayList;
+import java.util.List;
 
 class ClienteInsertValidator implements ConstraintValidator<ClienteInsert, ClienteNewDto> {
 

@@ -22,7 +22,7 @@ public class ItemPedido implements Serializable {
 
     }
 
-    public ItemPedido( Pedido pedido, Produtos produto, Double desconto, Integer quantidade, Double preco) {
+    public ItemPedido(Pedido pedido, Produto produto, Double desconto, Integer quantidade, Double preco) {
         this.id.setPedido(pedido);
         this.id.setProduto(produto);
         this.desconto = desconto;
@@ -30,7 +30,7 @@ public class ItemPedido implements Serializable {
         this.preco = preco;
     }
 
-    public Produtos getProdutos() {
+    public Produto getProdutos() {
         return id.getProduto();
     }
 
