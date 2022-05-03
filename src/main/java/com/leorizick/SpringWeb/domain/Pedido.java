@@ -21,7 +21,7 @@ public class Pedido implements Serializable {
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
-    @JsonIgnore
+
     @OneToMany(mappedBy="id.pedido")
     private Set<ItemPedido> itens = new HashSet<>();
 
@@ -49,6 +49,14 @@ public class Pedido implements Serializable {
 
     public Set<ItemPedido> getItens() {
         return itens;
+    }
+
+    public double getValorTotal(){
+        double soma = 0.0;
+        for (ItemPedido ip : itens){
+            soma = soma + ip.getSubTotal();
+        }
+        return soma;
     }
 
     public void setItens(Set<ItemPedido> itens) {
