@@ -34,3 +34,6 @@ build/
 
 ### TARGET ###
 /target
+
+### RESOURCES ###
+resources/application-dev.properties
