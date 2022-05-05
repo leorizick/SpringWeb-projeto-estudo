@@ -120,4 +120,16 @@ public class Endereco implements Serializable {
     public int hashCode() {
         return Objects.hash(getId());
     }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Endereço: ");
+        sb.append("Rua: ").append(logradouro).append(", numero: '").append(numero).append("\n");
+        sb.append(complemento).append("\n");
+        sb.append("Bairro: '").append(bairro).append("\n");
+        sb.append("Cidade: ").append(cidade);
+        return sb.toString();
+    }
 }
+
+

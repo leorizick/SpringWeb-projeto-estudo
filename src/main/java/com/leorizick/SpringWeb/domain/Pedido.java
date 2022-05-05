@@ -117,8 +117,8 @@ public class Pedido implements Serializable {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
         sb.append("Pedido numero: ").append(id);
-        sb.append(", Instante: ").append(sdf.format(date));
-        sb.append(", Cliente=").append(cliente.getName());
+        sb.append(", Instante: ").append(sdf.format(date)).append("\n");
+        sb.append("Cliente: ").append(cliente.getName());
         sb.append(", Situacao do pagamento:").append(pagamento.getEstado().getDescricao());
         sb.append("\n");
         sb.append("Detalhes: ").append("\n");
@@ -126,7 +126,7 @@ public class Pedido implements Serializable {
             sb.append(ip.toString());
         }
         sb.append("Valor total: ").append(nf.format(getValorTotal())).append("\n");
-        sb.append("Endereco de entrega: ").append(enderecoDeEntrega);
+        sb.append("Endereco de entrega: ").append(enderecoDeEntrega.toString());
         return sb.toString();
     }
 }

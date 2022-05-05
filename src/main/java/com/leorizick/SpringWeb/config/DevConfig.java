@@ -1,6 +1,8 @@
 package com.leorizick.SpringWeb.config;
 
 import com.leorizick.SpringWeb.services.DBService;
+import com.leorizick.SpringWeb.services.EmailService;
+import com.leorizick.SpringWeb.services.SmtpEmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -29,4 +31,11 @@ public class DevConfig {
 
         return  true;
     }
+
+    @Bean
+    public EmailService emailService(){
+        return new SmtpEmailService();
+    }
+
+
 }
