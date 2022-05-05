@@ -1,11 +1,13 @@
 package com.leorizick.SpringWeb.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.*;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
 public class Pedido implements Serializable {
@@ -22,7 +24,7 @@ public class Pedido implements Serializable {
     private Cliente cliente;
 
 
-    @OneToMany(mappedBy="id.pedido")
+    @OneToMany(mappedBy = "id.pedido")
     private Set<ItemPedido> itens = new HashSet<>();
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido")
@@ -36,7 +38,7 @@ public class Pedido implements Serializable {
         return cliente;
     }
 
-    public  Pedido(){
+    public Pedido() {
 
     }
 
@@ -51,17 +53,15 @@ public class Pedido implements Serializable {
         return itens;
     }
 
-    public double getValorTotal(){
+    public double getValorTotal() {
         double soma = 0.0;
-        for (ItemPedido ip : itens){
+        for (ItemPedido ip : itens) {
             soma = soma + ip.getSubTotal();
         }
         return soma;
     }
 
-    public void setItens(Set<ItemPedido> itens) {
-        this.itens = itens;
-    }
+
 
     public Integer getId() {
         return id;

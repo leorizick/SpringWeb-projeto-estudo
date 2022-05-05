@@ -1,6 +1,7 @@
 package com.leorizick.SpringWeb.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.leorizick.SpringWeb.domain.enums.EstadoPagamento;
 
 import javax.persistence.Entity;

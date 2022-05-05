@@ -1,6 +1,8 @@
 package com.leorizick.SpringWeb.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.leorizick.SpringWeb.domain.enums.EstadoPagamento;
 
 import javax.persistence.*;
@@ -9,6 +11,11 @@ import java.util.Objects;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@type")
+@JsonSubTypes({
+        @JsonSubTypes.Type(name="pagamentoComBoleto", value=PagamentoComBoleto.class),
+        @JsonSubTypes.Type(name="pagamentoComCartao", value=PagamentoComCartao.class)
+})
 public abstract class Pagamento implements Serializable {
 
     @Id
@@ -31,9 +38,7 @@ public abstract class Pagamento implements Serializable {
         this.pedido = pedido;
     }
 
-    public void setEstado(Integer estado) {
-        this.estado = estado;
-    }
+
 
     public Pedido getPedido() {
         return pedido;
