@@ -62,4 +62,10 @@ public class Cidade implements Serializable {
     public int hashCode() {
         return Objects.hash(getId());
     }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder(name).append("-").append(estado.toString());
+        return sb.toString();
+    }
 }

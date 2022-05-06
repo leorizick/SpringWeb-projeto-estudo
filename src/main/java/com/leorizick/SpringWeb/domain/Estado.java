@@ -62,4 +62,10 @@ public class Estado implements Serializable {
     public int hashCode() {
         return Objects.hash(getId());
     }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder(name);
+        return sb.toString();
+    }
 }

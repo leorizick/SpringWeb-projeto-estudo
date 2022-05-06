@@ -123,11 +123,11 @@ public class Endereco implements Serializable {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Endereço: ");
+        final StringBuilder sb = new StringBuilder();
         sb.append("Rua: ").append(logradouro).append(", numero: '").append(numero).append("\n");
         sb.append(complemento).append("\n");
-        sb.append("Bairro: '").append(bairro).append("\n");
-        sb.append("Cidade: ").append(cidade);
+        sb.append("Bairro: ").append(bairro).append("\n");
+        sb.append("Cidade: ").append(cidade.toString());
         return sb.toString();
     }
 }
