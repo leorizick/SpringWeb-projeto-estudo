@@ -5,6 +5,7 @@ import com.leorizick.SpringWeb.domain.enums.EstadoPagamento;
 import com.leorizick.SpringWeb.domain.enums.TipoCliente;
 import com.leorizick.SpringWeb.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
@@ -25,13 +26,15 @@ public class DBService {
     @Autowired
     private ClienteRepository clienteRepository;
     @Autowired
-    EnderecoRepository enderecoRepository;
+    private EnderecoRepository enderecoRepository;
     @Autowired
-    PedidoRepository pedidoRepository;
+    private PedidoRepository pedidoRepository;
     @Autowired
-    PagamentoRepository pagamentoRepository;
+    private PagamentoRepository pagamentoRepository;
     @Autowired
-    ItemPedidoRepository itemPedidoRepository;
+    private ItemPedidoRepository itemPedidoRepository;
+    @Autowired
+    private BCryptPasswordEncoder pe;
 
     public void instantiateTestDatabase() throws ParseException {
         Categorias cat1 = new Categorias(null, "Informatica");
@@ -93,7 +96,7 @@ public class DBService {
         estadoRepository.saveAll(Arrays.asList(stat1, stat2));
         cidadeRepository.saveAll(Arrays.asList(cidade1, cidade2, cidade3));
 
-        Cliente cli1 = new Cliente(null, "Maria Silva", "leorizick@hotmail.com", "36378912377", TipoCliente.PESSOAFISICA);
+        Cliente cli1 = new Cliente(null, "Maria Silva", "leorizick@hotmail.com", "36378912377", TipoCliente.PESSOAFISICA, pe.encode("1234"));
         cli1.getTelefones().addAll(Arrays.asList("9989777866", "997327417"));
 
         Endereco end1 = new Endereco(null, "Rua Flores", "300", "Apto 203", "Jardim", "38220834", cli1, cidade1);

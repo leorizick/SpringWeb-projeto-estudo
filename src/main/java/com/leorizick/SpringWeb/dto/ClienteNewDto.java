@@ -40,6 +40,9 @@ public class ClienteNewDto implements Serializable {
     private String telefone2;
     private String telefone3;
 
+    @NotBlank(message = "Preenchimento obrigatorio")
+    private String senha;
+
 
     public ClienteNewDto(){
 
@@ -160,6 +163,14 @@ public class ClienteNewDto implements Serializable {
 
     public void setTelefone3(String telefone3) {
         this.telefone3 = telefone3;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 }
 
