@@ -2,6 +2,7 @@ package com.leorizick.SpringWeb.services;
 
 import com.leorizick.SpringWeb.domain.*;
 import com.leorizick.SpringWeb.domain.enums.EstadoPagamento;
+import com.leorizick.SpringWeb.domain.enums.Perfil;
 import com.leorizick.SpringWeb.domain.enums.TipoCliente;
 import com.leorizick.SpringWeb.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -96,16 +97,22 @@ public class DBService {
         estadoRepository.saveAll(Arrays.asList(stat1, stat2));
         cidadeRepository.saveAll(Arrays.asList(cidade1, cidade2, cidade3));
 
-        Cliente cli1 = new Cliente(null, "Maria Silva", "leorizick@hotmail.com", "36378912377", TipoCliente.PESSOAFISICA, pe.encode("1234"));
+        Cliente cli1 = new Cliente(null, "Maria Silva", "maria@hotmail.com", "36378912377", TipoCliente.PESSOAFISICA, pe.encode("1234"));
         cli1.getTelefones().addAll(Arrays.asList("9989777866", "997327417"));
+
+        Cliente cli2 = new Cliente(null, "Poliana Hreczynski", "poliana@hotmail.com", "54420383003", TipoCliente.PESSOAFISICA, pe.encode("1234"));
+        cli2.addPerfil(Perfil.ADMIN);
+        cli2.getTelefones().addAll(Arrays.asList("9987888654", "997890725351"));
 
         Endereco end1 = new Endereco(null, "Rua Flores", "300", "Apto 203", "Jardim", "38220834", cli1, cidade1);
         Endereco end2 = new Endereco(null, "Avenida matos", "105", "Sala 800", "Centro", "38777012", cli1, cidade2);
+        Endereco end3 = new Endereco(null, "Vale das amendoas", "02", "Casa", "Av.Juremá", "190238485", cli2, cidade2);
 
         cli1.getEnderecos().addAll(Arrays.asList(end1, end2));
+        cli1.getEnderecos().addAll(Arrays.asList(end3));
 
-        clienteRepository.saveAll(Arrays.asList(cli1));
-        enderecoRepository.saveAll(Arrays.asList(end1, end2));
+        clienteRepository.saveAll(Arrays.asList(cli1,cli2));
+        enderecoRepository.saveAll(Arrays.asList(end1, end2, end3));
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyy HH:mm");
         Pedido ped1 = new Pedido(null, sdf.parse("30/09/2017 09:32"), cli1, end1);

@@ -1,11 +1,13 @@
 package com.leorizick.SpringWeb.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.leorizick.SpringWeb.domain.enums.Perfil;
 import com.leorizick.SpringWeb.domain.enums.TipoCliente;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 @Entity
@@ -29,11 +31,16 @@ public class Cliente implements Serializable {
     @CollectionTable(name = "telefone")
     private Set<String> telefones = new HashSet<>();
 
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "perfis")
+    private Set<Integer> perfis = new HashSet<>();
+
     @JsonIgnore
     @OneToMany(mappedBy = "cliente")
     private List<Pedido> pedidos = new ArrayList<>();
 
     public Cliente() {
+        addPerfil(Perfil.CLIENTE);
 
     }
 
@@ -44,6 +51,8 @@ public class Cliente implements Serializable {
         this.documento = documento;
         this.tipo = (tipo==null) ? null : tipo.getCod();
         this.senha = senha;
+        addPerfil(Perfil.CLIENTE);
+
     }
 
     public Integer getId() {
@@ -108,6 +117,18 @@ public class Cliente implements Serializable {
 
     public void setPedidos(List<Pedido> pedidos) {
         this.pedidos = pedidos;
+    }
+
+    public Set<Perfil> getPerfis() {
+        return perfis.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet());
+    }
+
+    public void addPerfil(Perfil perfil){
+        perfis.add(perfil.getCod());
+    }
+
+    public void setPerfis(Set<Integer> perfis) {
+        this.perfis = perfis;
     }
 
     @Override
