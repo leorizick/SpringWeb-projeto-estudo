@@ -4,11 +4,14 @@ import com.leorizick.SpringWeb.domain.Cidade;
 import com.leorizick.SpringWeb.domain.Cliente;
 import com.leorizick.SpringWeb.domain.Cliente;
 import com.leorizick.SpringWeb.domain.Endereco;
+import com.leorizick.SpringWeb.domain.enums.Perfil;
 import com.leorizick.SpringWeb.domain.enums.TipoCliente;
 import com.leorizick.SpringWeb.dto.ClienteDTO;
 import com.leorizick.SpringWeb.dto.ClienteNewDto;
 import com.leorizick.SpringWeb.repositories.ClienteRepository;
 import com.leorizick.SpringWeb.repositories.EnderecoRepository;
+import com.leorizick.SpringWeb.security.UserSS;
+import com.leorizick.SpringWeb.services.exception.AuthorizationException;
 import com.leorizick.SpringWeb.services.exception.DataIntegrityException;
 import com.leorizick.SpringWeb.services.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +39,10 @@ public class ClienteService {
     private BCryptPasswordEncoder pe;
 
     public Cliente find(Integer id) {
+        UserSS user = UserService.authenticated();
+        if(user == null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getId())){
+            throw new AuthorizationException("Acesso negado!");
+        }
         Optional<Cliente> obj = repo.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException(
                 "Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));
