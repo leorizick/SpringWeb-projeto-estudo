@@ -1,12 +1,15 @@
 package com.leorizick.SpringWeb.services;
 
-import com.leorizick.SpringWeb.domain.ItemPedido;
-import com.leorizick.SpringWeb.domain.PagamentoComBoleto;
-import com.leorizick.SpringWeb.domain.Pedido;
+import com.leorizick.SpringWeb.domain.*;
 import com.leorizick.SpringWeb.domain.enums.EstadoPagamento;
 import com.leorizick.SpringWeb.repositories.*;
+import com.leorizick.SpringWeb.security.UserSS;
+import com.leorizick.SpringWeb.services.exception.AuthorizationException;
 import com.leorizick.SpringWeb.services.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -67,4 +70,18 @@ public class PedidoService {
         emailService.sendOrderConfirmationEmail(obj);
         return obj;
     }
+
+    public Page<Pedido> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
+        UserSS user = UserService.authenticated();
+        if (user == null) {
+            throw new AuthorizationException("Acesso negado!");
+        }
+        PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
+        Cliente cliente = clienteService.find(user.getId());
+        return repo.findByCliente(cliente,pageRequest);
+    }
+
 }
+
+
+
