@@ -6,7 +6,6 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.nio.charset.StandardCharsets;
 import java.util.Date;
 
 @Component
@@ -19,7 +18,7 @@ public class JWTUtil {
     private Long expiration;
 
 
-    public String generateToken(String username){
+    public String generateToken(String username) {
         return Jwts.builder()
                 .setSubject(username)
                 .setExpiration(new Date(System.currentTimeMillis() + expiration))
@@ -27,13 +26,13 @@ public class JWTUtil {
                 .compact();
     }
 
-    public boolean   tokenValido(String token) {
+    public boolean tokenValido(String token) {
         Claims claims = getClaims(token);
-        if(claims != null){
+        if (claims != null) {
             String username = claims.getSubject();
             Date expirationDate = claims.getExpiration();
             Date now = new Date(System.currentTimeMillis());
-            if(username != null && expirationDate != null && now.before(expirationDate)){
+            if (username != null && expirationDate != null && now.before(expirationDate)) {
                 return true;
             }
         }
@@ -51,7 +50,7 @@ public class JWTUtil {
     private Claims getClaims(String token) {
         try {
             return Jwts.parser().setSigningKey(secret.getBytes()).parseClaimsJws(token).getBody();
-        }catch (Exception e){
+        } catch (Exception e) {
             return null;
         }
     }

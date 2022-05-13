@@ -8,10 +8,11 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SmtpEmailService extends AbstractEmailService{
+public class SmtpEmailService extends AbstractEmailService {
 
     @Autowired
     private MailSender mailSender;
+
 
     private static final Logger LOG = LoggerFactory.getLogger(SmtpEmailService.class);
 
